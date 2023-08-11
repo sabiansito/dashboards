@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  dashboard:
+    image: dashboard:v0.0.1
+    env_file:
+      - .env
+    environment:
+      - API_ORIGINATOR=${API_ORIGINATOR}
+      - API_CUSTOMER=${API_CUSTOMER}
+      - API_URL=${API_URL}
+      - API_KEY=${API_KEY}
+    ports:
+      - 2751:8080

@@ -1,0 +1,345 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dashboards
+  managedFields:
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      'f:metadata':
+        'f:labels':
+          .: {}
+          'f:app': {}
+      'f:spec':
+        'f:progressDeadlineSeconds': {}
+        'f:replicas': {}
+        'f:revisionHistoryLimit': {}
+        'f:selector': {}
+        'f:strategy':
+          'f:rollingUpdate':
+            .: {}
+            'f:maxSurge': {}
+            'f:maxUnavailable': {}
+          'f:type': {}
+        'f:template':
+          'f:metadata':
+            'f:labels':
+              .: {}
+              'f:app': {}
+          'f:spec':
+            'f:containers':
+              'k:{"name":"dashboards-sha256-1"}':
+                .: {}
+                'f:env':
+                  .: {}
+                  'k:{"name":"API_CUSTOMER"}':
+                    .: {}
+                    'f:name': {}
+                    'f:valueFrom':
+                      .: {}
+                      'f:configMapKeyRef': {}
+                'f:image': {}
+                'f:imagePullPolicy': {}
+                'f:name': {}
+                'f:resources': {}
+                'f:terminationMessagePath': {}
+                'f:terminationMessagePolicy': {}
+            'f:dnsPolicy': {}
+            'f:restartPolicy': {}
+            'f:schedulerName': {}
+            'f:securityContext': {}
+            'f:terminationGracePeriodSeconds': {}
+    manager: GoogleCloudConsole
+    operation: Update
+    time: '2023-07-19T16:47:22Z'
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      'f:spec':
+        'f:template':
+          'f:spec':
+            'f:containers':
+              'k:{"name":"dashboards-sha256-1"}':
+                'f:env':
+                  'k:{"name":"API_KEY"}':
+                    .: {}
+                    'f:name': {}
+                    'f:valueFrom':
+                      .: {}
+                      'f:secretKeyRef': {}
+                  'k:{"name":"API_ORIGINATOR"}':
+                    .: {}
+                    'f:name': {}
+                    'f:valueFrom':
+                      .: {}
+                      'f:configMapKeyRef': {}
+                  'k:{"name":"API_URL"}':
+                    .: {}
+                    'f:name': {}
+                    'f:valueFrom':
+                      .: {}
+                      'f:configMapKeyRef': {}
+                  'k:{"name":"APP_SECRET_KEY"}':
+                    .: {}
+                    'f:name': {}
+                    'f:valueFrom':
+                      .: {}
+                      'f:secretKeyRef': {}
+                  'k:{"name":"AUTH0_CLIENT_ID"}':
+                    .: {}
+                    'f:name': {}
+                    'f:valueFrom':
+                      .: {}
+                      'f:secretKeyRef': {}
+                  'k:{"name":"AUTH0_CLIENT_SECRET"}':
+                    .: {}
+                    'f:name': {}
+                    'f:valueFrom':
+                      .: {}
+                      'f:secretKeyRef': {}
+                  'k:{"name":"AUTH0_DOMAIN"}':
+                    .: {}
+                    'f:name': {}
+                    'f:valueFrom':
+                      .: {}
+                      'f:secretKeyRef': {}
+    manager: kubectl-edit
+    operation: Update
+    time: '2023-08-04T04:35:29Z'
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      'f:spec':
+        'f:template':
+          'f:metadata':
+            'f:annotations':
+              .: {}
+              'f:kubectl.kubernetes.io/restartedAt': {}
+    manager: kubectl-rollout
+    operation: Update
+    time: '2023-08-04T04:39:51Z'
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      'f:metadata':
+        'f:annotations':
+          .: {}
+          'f:deployment.kubernetes.io/revision': {}
+      'f:status':
+        'f:availableReplicas': {}
+        'f:conditions':
+          .: {}
+          'k:{"type":"Available"}':
+            .: {}
+            'f:lastTransitionTime': {}
+            'f:lastUpdateTime': {}
+            'f:message': {}
+            'f:reason': {}
+            'f:status': {}
+            'f:type': {}
+          'k:{"type":"Progressing"}':
+            .: {}
+            'f:lastTransitionTime': {}
+            'f:lastUpdateTime': {}
+            'f:message': {}
+            'f:reason': {}
+            'f:status': {}
+            'f:type': {}
+        'f:observedGeneration': {}
+        'f:readyReplicas': {}
+        'f:replicas': {}
+        'f:updatedReplicas': {}
+    manager: kube-controller-manager
+    operation: Update
+    subresource: status
+    time: '2023-08-04T04:39:55Z'
+  name: dashboards
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dashboards
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: '2023-08-04T04:39:51Z'
+      labels:
+        app: dashboards
+    spec:
+      containers:
+      - env:
+        - name: API_CUSTOMER
+          valueFrom:
+            configMapKeyRef:
+              key: API_CUSTOMER
+              name: dashboards-config-6ncj
+        - name: AUTH0_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              key: AUTH0_CLIENT_ID
+              name: dashboardssecrets
+        - name: AUTH0_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: AUTH0_CLIENT_SECRET
+              name: dashboardssecrets
+        - name: AUTH0_DOMAIN
+          valueFrom:
+            secretKeyRef:
+              key: AUTH0_DOMAIN
+              name: dashboardssecrets
+        - name: APP_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: APP_SECRET_KEY
+              name: dashboardssecrets
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              key: API_KEY
+              name: dashboardssecrets
+        - name: API_ORIGINATOR
+          valueFrom:
+            configMapKeyRef:
+              key: API_ORIGINATOR
+              name: dashboards-config-6ncj
+        - name: API_URL
+          valueFrom:
+            configMapKeyRef:
+              key: API_URL
+              name: dashboards-config-6ncj
+        image: gcr.io/tachyusbdaas/github.com/tachyus/dashboards
+        imagePullPolicy: IfNotPresent
+        name: dashboards-sha256-1
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  labels:
+    app: dashboards
+  managedFields:
+  - apiVersion: autoscaling/v2
+    fieldsType: FieldsV1
+    fieldsV1:
+      'f:metadata':
+        'f:labels':
+          .: {}
+          'f:app': {}
+      'f:spec':
+        'f:maxReplicas': {}
+        'f:metrics': {}
+        'f:minReplicas': {}
+        'f:scaleTargetRef':
+          'f:apiVersion': {}
+          'f:kind': {}
+          'f:name': {}
+    manager: GoogleCloudConsole
+    operation: Update
+    time: '2023-07-19T16:47:22Z'
+  - apiVersion: autoscaling/v2
+    fieldsType: FieldsV1
+    fieldsV1:
+      'f:status':
+        'f:conditions':
+          .: {}
+          'k:{"type":"AbleToScale"}':
+            .: {}
+            'f:lastTransitionTime': {}
+            'f:message': {}
+            'f:reason': {}
+            'f:status': {}
+            'f:type': {}
+          'k:{"type":"ScalingActive"}':
+            .: {}
+            'f:lastTransitionTime': {}
+            'f:message': {}
+            'f:reason': {}
+            'f:status': {}
+            'f:type': {}
+          'k:{"type":"ScalingLimited"}':
+            .: {}
+            'f:lastTransitionTime': {}
+            'f:message': {}
+            'f:reason': {}
+            'f:status': {}
+            'f:type': {}
+        'f:currentMetrics': {}
+        'f:currentReplicas': {}
+        'f:desiredReplicas': {}
+    manager: vpa-recommender
+    operation: Update
+    subresource: status
+    time: '2023-08-11T01:15:42Z'
+  name: dashboards-hpa-jfyd
+  namespace: default
+spec:
+  maxReplicas: 5
+  metrics:
+  - resource:
+      name: cpu
+      target:
+        averageUtilization: 80
+        type: Utilization
+    type: Resource
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: dashboards
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: dashboards
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      'f:metadata':
+        'f:labels':
+          .: {}
+          'f:app': {}
+      'f:spec':
+        'f:externalTrafficPolicy': {}
+        'f:internalTrafficPolicy': {}
+        'f:ports':
+          .: {}
+          'k:{"port":10000,"protocol":"TCP"}':
+            .: {}
+            'f:port': {}
+            'f:protocol': {}
+            'f:targetPort': {}
+        'f:selector': {}
+        'f:sessionAffinity': {}
+        'f:type': {}
+    manager: GoogleCloudConsole
+    operation: Update
+    time: '2023-07-19T18:35:04Z'
+  name: dashboards-service
+  namespace: default
+spec:
+  clusterIP: 10.97.92.62
+  clusterIPs:
+  - 10.97.92.62
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 31464
+    port: 10000
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: dashboards
+  sessionAffinity: None
+  type: NodePort
